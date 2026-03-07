@@ -3,6 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script>
+    (function () {
+      try {
+        var savedTheme = localStorage.getItem("portfolio-theme");
+        var theme = savedTheme === "dark" ? "dark" : "light";
+        document.documentElement.classList.add(theme + "-theme");
+      } catch (e) {
+        document.documentElement.classList.add("light-theme");
+      }
+    })();
+  </script>
   <title>SOGADJI Belange Amègnon Steeve | Certifications</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -10,7 +21,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
   <link rel="stylesheet" href="css/styles.css" />
 </head>
-<body class="light-theme" data-page="certifications">
+<body data-page="certifications">
   <button id="theme-toggle" aria-label="Basculer le theme">
     <i class="fa-regular fa-sun icon-sun"></i>
     <i class="fa-regular fa-moon icon-moon"></i>
@@ -57,6 +68,42 @@
   </div>
 
   <button id="scroll-top" aria-label="Retour en haut"><i class="fa-solid fa-arrow-up"></i></button>
+  <script id="certifications-fallback-data" type="application/json">
+    {
+      "certifications": [
+        {
+          "title": "eJPT v2 - Junior Penetration Tester",
+          "issuer": "INE Security",
+          "year": "2025",
+          "description": "Validation des bases en reconnaissance, enumeration, exploitation et reporting.",
+          "image": "assets/certifications/ejpt-placeholder.svg",
+          "image_alt": "Certificat eJPT v2",
+          "link": "https://example.com/certif-ejpt",
+          "link_label": "Voir certification"
+        },
+        {
+          "title": "Google Cybersecurity Professional Certificate",
+          "issuer": "Coursera",
+          "year": "2025",
+          "description": "Fondamentaux SOC, gestion d'incidents, SIEM et bonnes pratiques de defense.",
+          "image": "assets/certifications/google-cyber-placeholder.svg",
+          "image_alt": "Certificat Google Cybersecurity",
+          "link": "https://example.com/certif-google-cyber",
+          "link_label": "Voir certification"
+        },
+        {
+          "title": "Practical Network Security Analyst",
+          "issuer": "Hack The Box Academy",
+          "year": "2026",
+          "description": "Analyse de trafic, identification d'IOC et investigation sur traces reseau.",
+          "image": "assets/certifications/htb-placeholder.svg",
+          "image_alt": "Certificat Practical Network Security Analyst",
+          "link": "https://example.com/certif-htb",
+          "link_label": "Voir certification"
+        }
+      ]
+    }
+  </script>
   <script src="js/script.js"></script>
 </body>
 </html>

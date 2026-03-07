@@ -1,5 +1,6 @@
 (function () {
   var body = document.body;
+  var root = document.documentElement;
   var themeBtn = document.getElementById('theme-toggle');
   var scrollTopBtn = document.getElementById('scroll-top');
   var sidebar = document.getElementById('sidebar');
@@ -14,20 +15,20 @@
     });
   }
 
-  var storedTheme = localStorage.getItem('portfolio-theme');
-  if (storedTheme === 'dark') {
-    body.classList.remove('light-theme');
-    body.classList.add('dark-theme');
-  } else {
-    body.classList.remove('dark-theme');
-    body.classList.add('light-theme');
+  function applyTheme(theme) {
+    var resolvedTheme = theme === 'dark' ? 'dark' : 'light';
+    root.classList.remove('light-theme', 'dark-theme');
+    root.classList.add(resolvedTheme + '-theme');
+    localStorage.setItem('portfolio-theme', resolvedTheme);
   }
+
+  var storedTheme = localStorage.getItem('portfolio-theme');
+  applyTheme(storedTheme);
 
   if (themeBtn) {
     themeBtn.addEventListener('click', function () {
-      body.classList.toggle('light-theme');
-      body.classList.toggle('dark-theme');
-      localStorage.setItem('portfolio-theme', body.classList.contains('light-theme') ? 'light' : 'dark');
+      var nextTheme = root.classList.contains('light-theme') ? 'dark' : 'light';
+      applyTheme(nextTheme);
     });
     addClickFeedback(themeBtn);
   }
@@ -124,27 +125,67 @@
     return card;
   }
 
+  function renderCertifications(grid, certifications) {
+    grid.innerHTML = '';
+    certifications.forEach(function (item) {
+      grid.appendChild(createCertificationCard(item));
+    });
+  }
+
+  function readInlineCertificationsFallback() {
+    var fallbackNode = document.getElementById('certifications-fallback-data');
+    if (!fallbackNode) return null;
+
+    try {
+      var parsed = JSON.parse(fallbackNode.textContent || '{}');
+      if (parsed && Array.isArray(parsed.certifications)) return parsed.certifications;
+    } catch (error) {
+      return null;
+    }
+
+    return null;
+  }
+
+  function fetchCertificationsJson() {
+    var paths = [
+      'data/certifications.json',
+      './data/certifications.json',
+      '/data/certifications.json'
+    ];
+
+    var attempt = Promise.reject(new Error('No path attempted'));
+    paths.forEach(function (path) {
+      attempt = attempt.catch(function () {
+        return fetch(path).then(function (response) {
+          if (!response.ok) throw new Error('HTTP ' + response.status);
+          return response.json();
+        });
+      });
+    });
+
+    return attempt;
+  }
+
   function loadCertificationsFromJson() {
     var grid = document.getElementById('certifications-grid');
     if (!grid) return;
 
-    fetch('data/certifications.json')
-      .then(function (response) {
-        if (!response.ok) throw new Error('HTTP ' + response.status);
-        return response.json();
-      })
+    fetchCertificationsJson()
       .then(function (data) {
         if (!data || !Array.isArray(data.certifications)) {
           throw new Error('JSON invalide');
         }
 
-        grid.innerHTML = '';
-        data.certifications.forEach(function (item) {
-          grid.appendChild(createCertificationCard(item));
-        });
+        renderCertifications(grid, data.certifications);
       })
       .catch(function () {
-        grid.innerHTML = '<p class="fictive-note">Impossible de charger les certifications. Lance le site via un serveur local.</p>';
+        var fallbackCertifications = readInlineCertificationsFallback();
+        if (fallbackCertifications && fallbackCertifications.length) {
+          renderCertifications(grid, fallbackCertifications);
+          return;
+        }
+
+        grid.innerHTML = '<p class="fictive-note">Impossible de charger les certifications.</p>';
       });
   }
 
