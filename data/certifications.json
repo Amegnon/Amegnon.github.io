@@ -1,0 +1,34 @@
+{
+  "certifications": [
+    {
+      "title": "eJPT v2 - Junior Penetration Tester",
+      "issuer": "INE Security",
+      "year": "2025",
+      "description": "Validation des bases en reconnaissance, enumeration, exploitation et reporting.",
+      "image": "assets/certifications/ejpt-placeholder.svg",
+      "image_alt": "Certificat eJPT v2",
+      "link": "https://example.com/certif-ejpt",
+      "link_label": "Voir certification"
+    },
+    {
+      "title": "Google Cybersecurity Professional Certificate",
+      "issuer": "Coursera",
+      "year": "2025",
+      "description": "Fondamentaux SOC, gestion d'incidents, SIEM et bonnes pratiques de defense.",
+      "image": "assets/certifications/google-cyber-placeholder.svg",
+      "image_alt": "Certificat Google Cybersecurity",
+      "link": "https://example.com/certif-google-cyber",
+      "link_label": "Voir certification"
+    },
+    {
+      "title": "Practical Network Security Analyst",
+      "issuer": "Hack The Box Academy",
+      "year": "2026",
+      "description": "Analyse de trafic, identification d'IOC et investigation sur traces reseau.",
+      "image": "assets/certifications/htb-placeholder.svg",
+      "image_alt": "Certificat Practical Network Security Analyst",
+      "link": "https://example.com/certif-htb",
+      "link_label": "Voir certification"
+    }
+  ]
+}

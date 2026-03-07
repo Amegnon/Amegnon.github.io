@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SOGADJI Belange Amègnon Steeve | Projets</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body class="light-theme" data-page="projects">
+  <button id="theme-toggle" aria-label="Basculer le theme">
+    <i class="fa-regular fa-sun icon-sun"></i>
+    <i class="fa-regular fa-moon icon-moon"></i>
+  </button>
+
+  <div id="wrapper">
+    <aside id="sidebar">
+      <div class="inner">
+        <h2>Menu</h2>
+        <nav>
+          <a href="index.html" data-nav="home">Accueil</a>
+          <a href="about.html" data-nav="about">A propos</a>
+          <a href="skills.html" data-nav="skills">Competences</a>
+          <a href="projects.html" data-nav="projects">Projets</a>
+          <a href="certifications.html" data-nav="certifications">Certifications</a>
+          <a href="contact.html" data-nav="contact">Contact</a>
+        </nav>
+
+        <section class="sidebar-block">
+          <h3>Profil</h3>
+          <p>Etudiant IT/Telco, orientation Cybersecurite.</p>
+        </section>
+
+        <section class="sidebar-block">
+          <h3>Stack actuelle</h3>
+          <ul class="mini-list">
+            <li>Python</li>
+            <li>Burp Suite</li>
+            <li>Nmap</li>
+            <li>Wireshark</li>
+          </ul>
+        </section>
+      </div>
+    </aside>
+
+    <main id="main">
+      <div class="inner">
+        <section class="page-header"><h1>Projets </h1></section>
+        <section class="content-section">
+          <div class="projects-grid">
+            <article class="project-card interactive-card">
+              <h3>Campus Surface Scanner</h3>
+              <p>Plateforme fictive de cartographie reseau avec notation de risques et priorites.</p>
+            </article>
+            <article class="project-card interactive-card">
+              <h3>Web App Audit Lite</h3>
+              <p>Workflow fictif de pentest web academique avec checklist OWASP Top 10.</p>
+            </article>
+            <article class="project-card interactive-card">
+              <h3>Packet Insight Lab</h3>
+              <p>Lab fictif de detection d'anomalies reseau base sur captures et signatures simples.</p>
+            </article>
+            <article class="project-card interactive-card">
+              <h3>Auth Log Sentinel</h3>
+              <p>Mini-outil fictif Python pour corrélation d'echecs d'authentification.</p>
+            </article>
+            <article class="project-card interactive-card">
+              <h3>Threat Notes</h3>
+              <p>Base fictive de veille securite pour suivre CVE et publier des fiches techniques.</p>
+            </article>
+            <article class="project-card interactive-card">
+              <h3>Blue Team Starter Kit</h3>
+              <p>Collection fictive de scripts d'audit local et controles de hardening basique.</p>
+            </article>
+          </div>
+        </section>
+
+      </div>
+    </main>
+  </div>
+
+  <button id="scroll-top" aria-label="Retour en haut"><i class="fa-solid fa-arrow-up"></i></button>
+  <script src="js/script.js"></script>
+</body>
+</html>
