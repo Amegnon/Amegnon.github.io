@@ -1,33 +1,50 @@
 {
   "certifications": [
     {
-      "title": "eJPT v2 - Junior Penetration Tester",
-      "issuer": "INE Security",
+      "title": "World Wide CTF 2025 - Participation",
+      "issuer": "World Wide Flags",
       "year": "2025",
-      "description": "Validation des bases en reconnaissance, enumeration, exploitation et reporting.",
-      "image": "assets/certifications/ejpt-placeholder.svg",
-      "image_alt": "Certificat eJPT v2",
-      "link": "https://example.com/certif-ejpt",
+      "description": "Participation au World Wide CTF 2025, compétition de hacking jeopardy-style du 26 au 28 juillet 2025.",
+      "image": "assets/certifications/World_wide_ctf_2025.png",
+      "image_alt": "Certificat World Wide CTF 2025"
+      
+    },
+    {
+      "title": "Linux CLI Basics",
+      "issuer": "Cybrary",
+      "year": "2025",
+      "description": "Certification de formation continue (1 CEU/CPE) validant les bases de la ligne de commande Linux.",
+      "image": "assets/certifications/cybrary_linux.png",
+      "image_alt": "Certificat Linux CLI Basics - Cybrary",
+      "link": "https://app.cybrary.it/profile/EKOEll133?tab=cert-completion&cert=CC-81b26194-20e7-42f7-bb47-02aeeddda65a",
       "link_label": "Voir certification"
     },
     {
-      "title": "Google Cybersecurity Professional Certificate",
-      "issuer": "Coursera",
+      "title": "Introduction to Cybersecurity",
+      "issuer": "Cisco Networking Academy",
       "year": "2025",
-      "description": "Fondamentaux SOC, gestion d'incidents, SIEM et bonnes pratiques de defense.",
-      "image": "assets/certifications/google-cyber-placeholder.svg",
-      "image_alt": "Certificat Google Cybersecurity",
-      "link": "https://example.com/certif-google-cyber",
-      "link_label": "Voir certification"
+      "description": "Validation des fondamentaux de la cybersécurité : menaces, vulnérabilités, protection des systèmes et carrières en sécurité.",
+      "image": "assets/certifications/cisco_cybersecurity.png",
+      "image_alt": "Certificat Introduction to Cybersecurity - Cisco"
+     
     },
     {
-      "title": "Practical Network Security Analyst",
-      "issuer": "Hack The Box Academy",
-      "year": "2026",
-      "description": "Analyse de trafic, identification d'IOC et investigation sur traces reseau.",
-      "image": "assets/certifications/htb-placeholder.svg",
-      "image_alt": "Certificat Practical Network Security Analyst",
-      "link": "https://example.com/certif-htb",
+      "title": "NASA Space Apps Challenge 2025 - Galactic Problem Solver",
+      "issuer": "NASA International Space Apps Challenge",
+      "year": "2025",
+      "description": "Reconnaissance pour participation remarquable au hackathon NASA Space Apps Challenge, octobre 2025.",
+      "image": "assets/certifications/nasa_space_apps.png",
+      "image_alt": "Certificat NASA Space Apps Challenge 2025"
+      
+    },
+    {
+      "title": "Supervised Machine Learning: Regression and Classification",
+      "issuer": "DeepLearning.AI & Stanford University (via Coursera)",
+      "year": "2025",
+      "description": "Cours en machine learning supervisé couvrant la régression et la classification, dispensé par Andrew Ng.",
+      "image": "assets/certifications/machine_learning_coursera.png",
+      "image_alt": "Certificat Supervised ML - Stanford / DeepLearning.AI",
+      "link": "https://coursera.org/verify/JB66EA3EIB3N",
       "link_label": "Voir certification"
     }
   ]

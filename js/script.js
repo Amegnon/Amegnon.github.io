@@ -4,6 +4,11 @@
   var themeBtn = document.getElementById('theme-toggle');
   var scrollTopBtn = document.getElementById('scroll-top');
   var sidebar = document.getElementById('sidebar');
+  var imageLightbox = null;
+  var imageLightboxContent = null;
+  var imageLightboxCaption = null;
+  var imageLightboxClose = null;
+  var lastFocusedElement = null;
 
   function addClickFeedback(el) {
     if (!el) return;
@@ -79,6 +84,100 @@
     });
   }
 
+  function ensureImageLightbox() {
+    if (imageLightbox) return;
+
+    imageLightbox = document.createElement('div');
+    imageLightbox.className = 'image-lightbox';
+    imageLightbox.setAttribute('aria-hidden', 'true');
+
+    var dialog = document.createElement('div');
+    dialog.className = 'image-lightbox-dialog';
+    dialog.setAttribute('role', 'dialog');
+    dialog.setAttribute('aria-modal', 'true');
+    dialog.setAttribute('aria-label', 'Apercu image');
+
+    imageLightboxClose = document.createElement('button');
+    imageLightboxClose.type = 'button';
+    imageLightboxClose.className = 'image-lightbox-close';
+    imageLightboxClose.setAttribute('aria-label', 'Fermer l image');
+    imageLightboxClose.innerHTML = '&times;';
+
+    imageLightboxContent = document.createElement('img');
+    imageLightboxContent.className = 'image-lightbox-media';
+    imageLightboxContent.alt = 'Image agrandie';
+
+    imageLightboxCaption = document.createElement('p');
+    imageLightboxCaption.className = 'image-lightbox-caption';
+
+    dialog.appendChild(imageLightboxClose);
+    dialog.appendChild(imageLightboxContent);
+    dialog.appendChild(imageLightboxCaption);
+    imageLightbox.appendChild(dialog);
+    body.appendChild(imageLightbox);
+
+    imageLightbox.addEventListener('click', function (event) {
+      if (event.target === imageLightbox) closeImageLightbox();
+    });
+
+    imageLightboxClose.addEventListener('click', closeImageLightbox);
+
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape' && imageLightbox.classList.contains('open')) {
+        closeImageLightbox();
+      }
+    });
+  }
+
+  function openImageLightbox(src, altText) {
+    if (!src) return;
+    ensureImageLightbox();
+
+    imageLightboxContent.src = src;
+    imageLightboxContent.alt = altText || 'Image agrandie';
+    imageLightboxCaption.textContent = altText || '';
+    imageLightbox.classList.add('open');
+    imageLightbox.setAttribute('aria-hidden', 'false');
+    body.classList.add('lightbox-open');
+    lastFocusedElement = document.activeElement;
+    imageLightboxClose.focus();
+  }
+
+  function closeImageLightbox() {
+    if (!imageLightbox) return;
+
+    imageLightbox.classList.remove('open');
+    imageLightbox.setAttribute('aria-hidden', 'true');
+    imageLightboxContent.src = '';
+    imageLightboxContent.alt = 'Image agrandie';
+    imageLightboxCaption.textContent = '';
+    body.classList.remove('lightbox-open');
+
+    if (lastFocusedElement && typeof lastFocusedElement.focus === 'function') {
+      lastFocusedElement.focus();
+    }
+  }
+
+  function makeImageZoomable(imageEl, label) {
+    if (!imageEl) return;
+
+    imageEl.classList.add('zoomable-image');
+    imageEl.setAttribute('tabindex', '0');
+    imageEl.setAttribute('role', 'button');
+    imageEl.setAttribute('aria-label', label || 'Agrandir l image');
+
+    imageEl.addEventListener('click', function () {
+      openImageLightbox(imageEl.src, imageEl.alt || label);
+    });
+
+    imageEl.addEventListener('keydown', function (event) {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        openImageLightbox(imageEl.src, imageEl.alt || label);
+      }
+    });
+  }
+
   function createCertificationCard(item) {
     var card = document.createElement('article');
     card.className = 'certification-card interactive-card';
@@ -90,6 +189,7 @@
     image.src = item.image || 'assets/certifications/ejpt-placeholder.svg';
     image.alt = item.image_alt || item.title || 'Certification';
     image.loading = 'lazy';
+    makeImageZoomable(image, 'Agrandir la certification');
     imageWrap.appendChild(image);
 
     var title = document.createElement('h3');
@@ -187,6 +287,11 @@
 
         grid.innerHTML = '<p class="fictive-note">Impossible de charger les certifications.</p>';
       });
+  }
+
+  var profileImage = document.querySelector('.profile-image img');
+  if (profileImage) {
+    makeImageZoomable(profileImage, 'Agrandir la photo de profil');
   }
 
   loadCertificationsFromJson();
