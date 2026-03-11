@@ -231,7 +231,7 @@ body.sidebar-collapsed #sidebar .inner {
 }
 
 .nav-cards-grid {
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
 }
 
 .nav-card,
@@ -684,6 +684,7 @@ body.lightbox-open {
   }
 
   #sidebar .inner { position: static; }
+  #sidebar .inner { padding-top: 4.25rem; }
 
   #sidebar nav {
     grid-template-columns: repeat(5, minmax(0, 1fr));
@@ -729,6 +730,8 @@ body.lightbox-open {
   .certifications-grid,
   .skills-grid,
   .contact-grid { grid-template-columns: 1fr; }
+
+  #sidebar .inner { padding-top: 4.75rem; }
 
   .profile-card {
     grid-template-columns: 1fr;
