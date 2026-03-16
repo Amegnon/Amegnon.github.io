@@ -52,15 +52,15 @@
   if (sidebar) {
     var sidebarState = localStorage.getItem('portfolio-sidebar');
     if (sidebarState === 'collapsed') {
-      body.classList.add('sidebar-collapsed');
+      root.classList.add('sidebar-collapsed');
     }
 
     var sidebarToggleBtn = document.createElement('button');
     sidebarToggleBtn.id = 'sidebar-collapse-toggle';
-    sidebar.appendChild(sidebarToggleBtn);
+    body.appendChild(sidebarToggleBtn);
 
     function updateSidebarToggleIcon() {
-      var isCollapsed = body.classList.contains('sidebar-collapsed');
+      var isCollapsed = root.classList.contains('sidebar-collapsed');
       sidebarToggleBtn.innerHTML = isCollapsed
         ? '<i class="fa-solid fa-bars"></i>'
         : '<i class="fa-solid fa-xmark"></i>';
@@ -73,10 +73,10 @@
     updateSidebarToggleIcon();
 
     sidebarToggleBtn.addEventListener('click', function () {
-      body.classList.toggle('sidebar-collapsed');
+      root.classList.toggle('sidebar-collapsed');
       localStorage.setItem(
         'portfolio-sidebar',
-        body.classList.contains('sidebar-collapsed') ? 'collapsed' : 'expanded'
+        root.classList.contains('sidebar-collapsed') ? 'collapsed' : 'expanded'
       );
       updateSidebarToggleIcon();
     });
