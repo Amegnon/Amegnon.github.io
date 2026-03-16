@@ -41,7 +41,12 @@
   var currentPage = body.getAttribute('data-page');
   if (currentPage) {
     var activeNav = document.querySelector('[data-nav="' + currentPage + '"]');
-    if (activeNav) activeNav.classList.add('active');
+    if (activeNav) {
+      activeNav.classList.add('active');
+      if (typeof activeNav.scrollIntoView === 'function') {
+        activeNav.scrollIntoView({ block: 'nearest' });
+      }
+    }
   }
 
   if (sidebar) {
@@ -52,9 +57,20 @@
 
     var sidebarToggleBtn = document.createElement('button');
     sidebarToggleBtn.id = 'sidebar-collapse-toggle';
-    sidebarToggleBtn.setAttribute('aria-label', 'Rabattre le menu lateral');
-    sidebarToggleBtn.innerHTML = '<i class="fa-solid fa-bars"></i>';
     sidebar.appendChild(sidebarToggleBtn);
+
+    function updateSidebarToggleIcon() {
+      var isCollapsed = body.classList.contains('sidebar-collapsed');
+      sidebarToggleBtn.innerHTML = isCollapsed
+        ? '<i class="fa-solid fa-bars"></i>'
+        : '<i class="fa-solid fa-xmark"></i>';
+      sidebarToggleBtn.setAttribute(
+        'aria-label',
+        isCollapsed ? 'Ouvrir le menu lateral' : 'Fermer le menu lateral'
+      );
+    }
+
+    updateSidebarToggleIcon();
 
     sidebarToggleBtn.addEventListener('click', function () {
       body.classList.toggle('sidebar-collapsed');
@@ -62,6 +78,7 @@
         'portfolio-sidebar',
         body.classList.contains('sidebar-collapsed') ? 'collapsed' : 'expanded'
       );
+      updateSidebarToggleIcon();
     });
 
     addClickFeedback(sidebarToggleBtn);
@@ -69,6 +86,28 @@
 
   var clickable = document.querySelectorAll('.interactive-card, #sidebar nav a, #scroll-top');
   clickable.forEach(addClickFeedback);
+
+  var navLinks = document.querySelectorAll('#sidebar nav a');
+  navLinks.forEach(function (link) {
+    link.addEventListener('click', function (event) {
+      var href = link.getAttribute('href') || '';
+      if (href.indexOf('#') !== -1) {
+        var parts = href.split('#');
+        var targetId = parts[1];
+        var target = targetId ? document.getElementById(targetId) : null;
+        if (target) {
+          event.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          if (history && history.replaceState) {
+            history.replaceState(null, '', '#' + targetId);
+          }
+        }
+      }
+      if (typeof link.scrollIntoView === 'function') {
+        link.scrollIntoView({ block: 'nearest' });
+      }
+    });
+  });
 
   if (scrollTopBtn) {
     window.addEventListener('scroll', function () {
@@ -101,7 +140,7 @@
     imageLightboxClose.type = 'button';
     imageLightboxClose.className = 'image-lightbox-close';
     imageLightboxClose.setAttribute('aria-label', 'Fermer l image');
-    imageLightboxClose.innerHTML = '&times;';
+    imageLightboxClose.innerHTML = '<i class="fa-solid fa-xmark"></i>';
 
     imageLightboxContent = document.createElement('img');
     imageLightboxContent.className = 'image-lightbox-media';
