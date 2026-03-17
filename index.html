@@ -13,6 +13,11 @@
         if (sidebarState === "collapsed") {
           document.documentElement.classList.add("sidebar-collapsed");
         }
+        var ua = navigator.userAgent || "";
+        var isMobileUa = new RegExp("Mobi|Android|iPhone|iPad|iPod", "i").test(ua);
+        if (!isMobileUa) {
+          document.documentElement.classList.add("desktop-forced");
+        }
       } catch (e) {
         document.documentElement.classList.add("light-theme");
       }

@@ -91,6 +91,7 @@
   navLinks.forEach(function (link) {
     link.addEventListener('click', function (event) {
       var href = link.getAttribute('href') || '';
+      var currentPath = (window.location.pathname || '').split('/').pop();
       if (href.indexOf('#') !== -1) {
         var parts = href.split('#');
         var targetId = parts[1];
@@ -101,6 +102,20 @@
           if (history && history.replaceState) {
             history.replaceState(null, '', '#' + targetId);
           }
+          if (sessionStorage) {
+            sessionStorage.setItem('scroll-target', targetId);
+          }
+        }
+      } else {
+        if (currentPath && href === currentPath) {
+          var mainTarget = document.getElementById('main');
+          if (mainTarget) {
+            event.preventDefault();
+            mainTarget.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }
+        if (sessionStorage) {
+          sessionStorage.setItem('scroll-target', 'main');
         }
       }
       if (typeof link.scrollIntoView === 'function') {
@@ -108,6 +123,23 @@
       }
     });
   });
+
+  if (sessionStorage) {
+    var pendingScrollTarget = sessionStorage.getItem('scroll-target');
+    if (pendingScrollTarget) {
+      sessionStorage.removeItem('scroll-target');
+      var resolvedTarget = pendingScrollTarget === 'main'
+        ? document.getElementById('main')
+        : document.getElementById(pendingScrollTarget);
+      if (resolvedTarget && typeof resolvedTarget.scrollIntoView === 'function') {
+        var scrollToTarget = function () {
+          resolvedTarget.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        };
+        requestAnimationFrame(scrollToTarget);
+        setTimeout(scrollToTarget, 180);
+      }
+    }
+  }
 
   if (scrollTopBtn) {
     window.addEventListener('scroll', function () {
