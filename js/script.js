@@ -9,6 +9,7 @@
   var imageLightboxCaption = null;
   var imageLightboxClose = null;
   var lastFocusedElement = null;
+  var updateSidebarToggleIcon = null;
 
   function addClickFeedback(el) {
     if (!el) return;
@@ -49,6 +50,49 @@
     }
   }
 
+  function isMobileSidebar() {
+    if (!window.matchMedia) return false;
+    return window.matchMedia('(max-width: 1100px)').matches;
+  }
+
+  function getPrimaryScrollTarget() {
+    return document.querySelector('.page-header') || document.getElementById('main');
+  }
+
+  function smoothScrollTo(target) {
+    if (!target) return;
+    var offset = 72;
+    var targetTop = target.getBoundingClientRect().top + window.pageYOffset - offset;
+    window.scrollTo({ top: Math.max(targetTop, 0), behavior: 'smooth' });
+  }
+
+  function setSidebarCollapsed(collapsed, persist) {
+    root.classList.toggle('sidebar-collapsed', collapsed);
+    if (persist) {
+      localStorage.setItem('portfolio-sidebar', collapsed ? 'collapsed' : 'expanded');
+    }
+    if (typeof updateSidebarToggleIcon === 'function') {
+      updateSidebarToggleIcon();
+    }
+  }
+
+  function syncSidebarMode() {
+    var isMobile = isMobileSidebar();
+    root.classList.toggle('sidebar-mobile', isMobile);
+
+    if (isMobile) {
+      var stored = localStorage.getItem('portfolio-sidebar');
+      if (!stored) {
+        setSidebarCollapsed(true, false);
+      } else {
+        setSidebarCollapsed(stored === 'collapsed', false);
+      }
+    } else {
+      setSidebarCollapsed(false, false);
+      localStorage.setItem('portfolio-sidebar', 'expanded');
+    }
+  }
+
   if (sidebar) {
     var sidebarState = localStorage.getItem('portfolio-sidebar');
     if (sidebarState === 'collapsed') {
@@ -59,7 +103,7 @@
     sidebarToggleBtn.id = 'sidebar-collapse-toggle';
     body.appendChild(sidebarToggleBtn);
 
-    function updateSidebarToggleIcon() {
+    updateSidebarToggleIcon = function () {
       var isCollapsed = root.classList.contains('sidebar-collapsed');
       sidebarToggleBtn.innerHTML = isCollapsed
         ? '<i class="fa-solid fa-bars"></i>'
@@ -68,20 +112,71 @@
         'aria-label',
         isCollapsed ? 'Ouvrir le menu lateral' : 'Fermer le menu lateral'
       );
-    }
+    };
 
     updateSidebarToggleIcon();
 
-    sidebarToggleBtn.addEventListener('click', function () {
-      root.classList.toggle('sidebar-collapsed');
-      localStorage.setItem(
-        'portfolio-sidebar',
-        root.classList.contains('sidebar-collapsed') ? 'collapsed' : 'expanded'
-      );
+    var toggleTouchActive = false;
+    function handleSidebarToggle() {
+      var wasCollapsed = root.classList.contains('sidebar-collapsed');
+      setSidebarCollapsed(!wasCollapsed, true);
       updateSidebarToggleIcon();
+    }
+
+    sidebarToggleBtn.addEventListener('click', function (event) {
+      if (toggleTouchActive) {
+        toggleTouchActive = false;
+        return;
+      }
+      event.preventDefault();
+      event.stopPropagation();
+      handleSidebarToggle();
+    });
+
+    sidebarToggleBtn.addEventListener('touchend', function (event) {
+      toggleTouchActive = true;
+      event.preventDefault();
+      event.stopPropagation();
+      handleSidebarToggle();
     });
 
     addClickFeedback(sidebarToggleBtn);
+    syncSidebarMode();
+    window.addEventListener('resize', syncSidebarMode);
+
+    sidebar.addEventListener('click', function (event) {
+      if (isMobileSidebar()) {
+        event.stopPropagation();
+      }
+    });
+
+    sidebar.addEventListener('touchend', function (event) {
+      if (isMobileSidebar()) {
+        event.stopPropagation();
+      }
+    });
+
+    function shouldIgnoreBodyClose(event) {
+      if (!event || !event.target) return false;
+      var target = event.target;
+      if (sidebarToggleBtn && sidebarToggleBtn.contains(target)) return true;
+      if (sidebar && sidebar.contains(target)) return true;
+      return false;
+    }
+
+    body.addEventListener('click', function (event) {
+      if (shouldIgnoreBodyClose(event)) return;
+      if (isMobileSidebar() && !root.classList.contains('sidebar-collapsed')) {
+        setSidebarCollapsed(true, true);
+      }
+    });
+
+    body.addEventListener('touchend', function (event) {
+      if (shouldIgnoreBodyClose(event)) return;
+      if (isMobileSidebar() && !root.classList.contains('sidebar-collapsed')) {
+        setSidebarCollapsed(true, true);
+      }
+    });
   }
 
   var clickable = document.querySelectorAll('.interactive-card, #sidebar nav a, #scroll-top');
@@ -91,31 +186,56 @@
   navLinks.forEach(function (link) {
     link.addEventListener('click', function (event) {
       var href = link.getAttribute('href') || '';
+      var targetAttr = link.getAttribute('target');
       var currentPath = (window.location.pathname || '').split('/').pop();
+      var mobileView = isMobileSidebar();
+      var shouldNavigate = true;
       if (href.indexOf('#') !== -1) {
         var parts = href.split('#');
         var targetId = parts[1];
         var target = targetId ? document.getElementById(targetId) : null;
         if (target) {
           event.preventDefault();
-          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          smoothScrollTo(target);
           if (history && history.replaceState) {
             history.replaceState(null, '', '#' + targetId);
           }
-          if (sessionStorage) {
+          if (mobileView && sessionStorage) {
             sessionStorage.setItem('scroll-target', targetId);
+          }
+          if (mobileView) {
+            setSidebarCollapsed(true, true);
+          }
+          shouldNavigate = false;
+        } else if (mobileView) {
+          event.preventDefault();
+          setSidebarCollapsed(true, true);
+          if (targetAttr === '_blank') {
+            window.open(href);
+          } else {
+            window.location.href = href;
           }
         }
       } else {
         if (currentPath && href === currentPath) {
-          var mainTarget = document.getElementById('main');
+          var mainTarget = getPrimaryScrollTarget();
           if (mainTarget) {
             event.preventDefault();
-            mainTarget.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            smoothScrollTo(mainTarget);
           }
+          shouldNavigate = false;
         }
-        if (sessionStorage) {
-          sessionStorage.setItem('scroll-target', 'main');
+        if (mobileView && sessionStorage) {
+          sessionStorage.setItem('scroll-target', 'primary');
+        }
+        if (mobileView && shouldNavigate) {
+          event.preventDefault();
+          setSidebarCollapsed(true, true);
+          if (targetAttr === '_blank') {
+            window.open(href);
+          } else {
+            window.location.href = href;
+          }
         }
       }
       if (typeof link.scrollIntoView === 'function') {
@@ -127,16 +247,20 @@
   if (sessionStorage) {
     var pendingScrollTarget = sessionStorage.getItem('scroll-target');
     if (pendingScrollTarget) {
-      sessionStorage.removeItem('scroll-target');
-      var resolvedTarget = pendingScrollTarget === 'main'
-        ? document.getElementById('main')
-        : document.getElementById(pendingScrollTarget);
-      if (resolvedTarget && typeof resolvedTarget.scrollIntoView === 'function') {
-        var scrollToTarget = function () {
-          resolvedTarget.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        };
-        requestAnimationFrame(scrollToTarget);
-        setTimeout(scrollToTarget, 180);
+      if (isMobileSidebar()) {
+        sessionStorage.removeItem('scroll-target');
+        var resolvedTarget = pendingScrollTarget === 'primary'
+          ? getPrimaryScrollTarget()
+          : document.getElementById(pendingScrollTarget);
+        if (resolvedTarget) {
+          var scrollToTarget = function () {
+            smoothScrollTo(resolvedTarget);
+          };
+          requestAnimationFrame(scrollToTarget);
+          setTimeout(scrollToTarget, 180);
+        }
+      } else {
+        sessionStorage.removeItem('scroll-target');
       }
     }
   }

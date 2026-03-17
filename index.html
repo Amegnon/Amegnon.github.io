@@ -10,13 +10,9 @@
         var theme = savedTheme === "dark" ? "dark" : "light";
         document.documentElement.classList.add(theme + "-theme");
         var sidebarState = localStorage.getItem("portfolio-sidebar");
-        if (sidebarState === "collapsed") {
+        var isMobileView = window.matchMedia && window.matchMedia("(max-width: 1100px)").matches;
+        if (sidebarState === "collapsed" || (!sidebarState && isMobileView)) {
           document.documentElement.classList.add("sidebar-collapsed");
-        }
-        var ua = navigator.userAgent || "";
-        var isMobileUa = new RegExp("Mobi|Android|iPhone|iPad|iPod", "i").test(ua);
-        if (!isMobileUa) {
-          document.documentElement.classList.add("desktop-forced");
         }
       } catch (e) {
         document.documentElement.classList.add("light-theme");
@@ -31,11 +27,11 @@
   <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body data-page="home">
-  <button id="theme-toggle" aria-label="Basculer le theme">
-    <i class="fa-regular fa-sun icon-sun"></i>
-    <i class="fa-regular fa-moon icon-moon"></i>
-  </button>
 
+  <button id="theme-toggle" aria-label="Basculer le theme">
+    <i class="fa-solid fa-sun icon-sun"></i>
+    <i class="fa-solid fa-moon icon-moon"></i>
+  </button>
   <div id="wrapper">
     <aside id="sidebar">
       <div class="inner">
