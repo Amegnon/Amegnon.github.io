@@ -1,137 +1,507 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <script>
     (function () {
+      var root = document.documentElement;
       try {
-        var savedTheme = localStorage.getItem("portfolio-theme");
-        var theme = savedTheme === "dark" ? "dark" : "light";
-        document.documentElement.classList.add(theme + "-theme");
-        var sidebarState = localStorage.getItem("portfolio-sidebar");
-        var isMobileView = window.matchMedia && window.matchMedia("(max-width: 1100px)").matches;
-        if (sidebarState === "collapsed" || (!sidebarState && isMobileView)) {
-          document.documentElement.classList.add("sidebar-collapsed");
-        }
-      } catch (e) {
-        document.documentElement.classList.add("light-theme");
-      }
+        var saved = localStorage.getItem("portfolio-theme");
+        if (saved === "light" || saved === "dark") root.dataset.theme = saved;
+      } catch (e) {}
+      root.classList.add("js");
     })();
   </script>
-  <title>SOGADJI Belange Amègnon Steeve | Accueil</title>
+  <title>Belange Sogadji — Cybersécurité & Génie Informatique</title>
+  <meta name="description" content="Portfolio de SOGADJI Belange Amègnon Steeve, étudiant en 3e année de Génie Informatique et Télécommunications à l'EPAC, passionné de cybersécurité." />
+  <meta name="theme-color" content="#060609" />
+  <meta property="og:title" content="Belange Sogadji — Cybersécurité & Génie Informatique" />
+  <meta property="og:description" content="Étudiant en Génie Informatique et Télécommunications, orienté cybersécurité : projets, compétences et certifications." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="assets/profile/profile.jpg" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23060609'/%3E%3Cpath d='M16 22l12 10-12 10M34 44h14' fill='none' stroke='%23ff2e55' stroke-width='6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700&family=Geist+Mono:wght@400;500;600;700&family=Geist:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
   <link rel="stylesheet" href="css/styles.css" />
 </head>
-<body data-page="home">
+<body>
+  <a href="#main" class="btn btn-primary skip-link">Aller au contenu</a>
+  <div class="progress" aria-hidden="true"></div>
 
-  <button id="theme-toggle" aria-label="Basculer le theme">
-    <i class="fa-solid fa-sun icon-sun"></i>
-    <i class="fa-solid fa-moon icon-moon"></i>
-  </button>
-  <div id="wrapper">
-    <aside id="sidebar">
-      <div class="inner">
-        <h2>Menu</h2>
-        <nav>
-          <a href="index.html" data-nav="home">Accueil</a>
-          <a href="about.html" data-nav="about">A propos</a>
-          <a href="skills.html" data-nav="skills">Competences</a>
-          <a href="projects.html" data-nav="projects">Projets</a>
-          <a href="certifications.html" data-nav="certifications">Certifications</a>
-          <a href="contact.html" data-nav="contact">Contact</a>
-        </nav>
+  <header class="nav" id="nav">
+    <div class="wrap">
+      <nav class="nav__bar" aria-label="Navigation principale">
+        <a href="#home" class="brand" aria-label="Belange Sogadji — accueil">
+          <span class="brand__mark" aria-hidden="true">&gt;_</span>
+          <span class="brand__word">Belange</span>
+        </a>
 
-        <section class="sidebar-block">
-          <h3>Profil</h3>
-          <p>Etudiant IT/Telco, orientation Cybersecurite.</p>
-        </section>
+        <div class="nav__links">
+          <a href="#home" class="nav__link" data-nav="home">Accueil</a>
+          <a href="#about" class="nav__link" data-nav="about">À propos</a>
+          <a href="#skills" class="nav__link" data-nav="skills">Compétences</a>
+          <a href="#projects" class="nav__link" data-nav="projects">Projets</a>
+          <a href="#certifications" class="nav__link" data-nav="certifications">Certifications</a>
+          <a href="#contact" class="nav__link" data-nav="contact">Contact</a>
+        </div>
 
-        <section class="sidebar-block">
-          <h3>Stack actuelle</h3>
-          <ul class="mini-list">
-            <li>Python</li>
-            <li>Burp Suite</li>
-            <li>Nmap</li>
-            <li>Wireshark</li>
-          </ul>
-        </section>
-      </div>
-    </aside>
+        <div class="nav__spacer"></div>
 
-    <main id="main">
-      <div class="inner">
-        <section class="hero-banner">
-          <div class="profile-card">
-            <div class="profile-image">
-              <img src="assets/profile/profile.jpg" alt="Photo de profil de SOGADJI Belange Amègnon Steeve" />
-            </div>
-            <div class="profile-info">
-              <h1>SOGADJI Belange Amègnon Steeve</h1>
-              <p class="subtitle">Etudiant en 3eme annee de Genie Informatique et Telecommunications et passionné de la cybersécurité.</p>
-              <div class="hero-tags">
-                <span>Python</span>
-                <span>Burp Suite</span>
-                <span>Nmap</span>
-                <span>Wireshark</span>
-                <span>Pentesting debutant</span>
+        <div class="nav__actions">
+          <a href="https://hackticles.vercel.app" target="_blank" rel="noopener noreferrer" class="btn btn-soft btn-sm nav__blog">
+            Blog <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+          </a>
+          <button type="button" id="theme-toggle" class="icon-btn" aria-label="Basculer le thème">
+            <i class="fa-solid fa-sun icon-sun" aria-hidden="true"></i>
+            <i class="fa-solid fa-moon icon-moon" aria-hidden="true"></i>
+          </button>
+          <button type="button" id="menu-toggle" class="icon-btn nav__burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="mobile-menu">
+            <i class="fa-solid fa-bars" aria-hidden="true"></i>
+          </button>
+        </div>
+      </nav>
+    </div>
+
+    <div id="mobile-menu" class="mobile-menu" hidden>
+      <a href="#home" data-nav="home"><i class="fa-solid fa-house" aria-hidden="true"></i>Accueil</a>
+      <a href="#about" data-nav="about"><i class="fa-solid fa-user" aria-hidden="true"></i>À propos</a>
+      <a href="#skills" data-nav="skills"><i class="fa-solid fa-shield-halved" aria-hidden="true"></i>Compétences</a>
+      <a href="#projects" data-nav="projects"><i class="fa-solid fa-diagram-project" aria-hidden="true"></i>Projets</a>
+      <a href="#certifications" data-nav="certifications"><i class="fa-solid fa-certificate" aria-hidden="true"></i>Certifications</a>
+      <a href="#contact" data-nav="contact"><i class="fa-solid fa-address-card" aria-hidden="true"></i>Contact</a>
+      <a href="https://hackticles.vercel.app" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>Blog Hackticles</a>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- ============================ Hero ============================ -->
+    <section class="hero" id="home" data-section>
+      <div class="wrap hero__grid">
+        <div>
+          <span class="pill" data-reveal>
+            <span class="pill__dot">whoami</span>
+            Étudiant GIT · EPAC · Cotonou
+          </span>
+          <h1 class="hero__title" data-reveal style="--delay:.06s">Belange <span class="text-grad">Sogadji</span></h1>
+          <p class="hero__fullname" data-reveal style="--delay:.1s">SOGADJI Belange Amègnon Steeve</p>
+          <p class="hero__role" data-reveal style="--delay:.14s" aria-label="Étudiant en cybersécurité">
+            <span class="p" aria-hidden="true">&gt;</span>
+            <span aria-hidden="true"><span id="typed" data-words='["Étudiant en cybersécurité","Pentesting — niveau débutant","Participant CTF","Scripting sécurité en Python"]'>Étudiant en cybersécurité</span><span class="caret"></span></span>
+          </p>
+          <p class="hero__sub" data-reveal style="--delay:.18s">
+            Étudiant en 3<sup>e</sup> année de Génie Informatique et Télécommunications, passionné de
+            cybersécurité. Mon objectif : contribuer à des infrastructures numériques plus résilientes et plus sûres.
+          </p>
+          <div class="hero__cta" data-reveal style="--delay:.22s">
+            <a href="#projects" class="btn btn-primary btn-lg">Voir mes projets <i class="fa-solid fa-arrow-down" aria-hidden="true"></i></a>
+            <a href="#contact" class="btn btn-ghost btn-lg">Me contacter</a>
+          </div>
+          <div class="hero__stats" data-reveal style="--delay:.28s">
+            <div><div class="stat__n"><span data-count="3">3</span><sup>e</sup></div><div class="stat__l">année · GIT</div></div>
+            <div><div class="stat__n" data-count="5" id="stat-certs">5</div><div class="stat__l">certifications</div></div>
+            <div><div class="stat__n" data-count="4">4</div><div class="stat__l">outils cyber</div></div>
+          </div>
+        </div>
+
+        <div class="stage" id="stage" data-reveal style="--delay:.1s">
+          <div class="stage__halo" aria-hidden="true"></div>
+          <div class="stage__ring" aria-hidden="true"></div>
+          <div class="stage__scene">
+            <figure class="deck-card deck-card--photo">
+              <img id="profile-photo" src="assets/profile/profile.jpg" alt="Photo de profil de SOGADJI Belange Amègnon Steeve" width="623" height="673" />
+              <figcaption><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Cotonou, Bénin</figcaption>
+            </figure>
+
+            <div class="deck-card deck-card--term" aria-hidden="true">
+              <div class="terminal__bar">
+                <span class="terminal__dot"></span><span class="terminal__dot"></span><span class="terminal__dot"></span>
+                <span>~/belange</span>
+              </div>
+              <div class="terminal__body">
+                <div><span class="p">$</span> whoami</div>
+                <div class="dim">belange · GIT · EPAC</div>
+                <div><span class="p">$</span> cat focus.txt</div>
+                <div class="ok">cybersécurité</div>
+                <div class="ok">pentest · réseaux</div>
               </div>
             </div>
+
+            <div class="deck-card deck-card--id">
+              <div class="id-row"><i class="fa-solid fa-graduation-cap" aria-hidden="true"></i><span>EPAC · 3<sup>e</sup> année</span></div>
+              <div class="id-row"><i class="fa-solid fa-shield-halved" aria-hidden="true"></i><span>Orientation cybersécurité</span></div>
+              <div class="id-row"><i class="fa-solid fa-flag" aria-hidden="true"></i><span>World Wide CTF 2025</span></div>
+            </div>
+
+            <span class="orbit-tag" style="top:3%;left:-2%;--d:0s"><i class="fa-brands fa-python" aria-hidden="true"></i>Python</span>
+            <span class="orbit-tag" style="top:52%;left:-8%;--d:-1.5s"><i class="fa-solid fa-bug" aria-hidden="true"></i>Burp Suite</span>
+            <span class="orbit-tag" style="bottom:3%;left:8%;--d:-3s"><i class="fa-solid fa-satellite-dish" aria-hidden="true"></i>Nmap</span>
+            <span class="orbit-tag" style="top:46%;right:-4%;--d:-4.5s"><i class="fa-solid fa-wave-square" aria-hidden="true"></i>Wireshark</span>
           </div>
-        </section>
-
-        <section class="nav-cards-section">
-          <div class="nav-cards-grid">
-            <a href="about.html" class="nav-card interactive-card">
-              <i class="fa-solid fa-user"></i>
-              <h3>A propos</h3>
-              <p>Mon parcours et ma vision securite.</p>
-            </a>
-            <a href="skills.html" class="nav-card interactive-card">
-              <i class="fa-solid fa-shield-halved"></i>
-              <h3>Competences</h3>
-              <p>Mes outils actuels en cyber.</p>
-            </a>
-            <a href="projects.html" class="nav-card interactive-card">
-              <i class="fa-solid fa-diagram-project"></i>
-              <h3>Projets</h3>
-              <p>Scenarios fictifs de portfolio.</p>
-            </a>
-            <a href="certifications.html" class="nav-card interactive-card">
-              <i class="fa-solid fa-certificate"></i>
-              <h3>Certifications</h3>
-              <p>Mes attestations et badges obtenus.</p>
-            </a>
-            <a href="contact.html" class="nav-card interactive-card">
-              <i class="fa-solid fa-address-card"></i>
-              <h3>Contact</h3>
-              <p>Coordonnees fictives de demo.</p>
-            </a>
-          </div>
-        </section>
-
-        <section class="content-section">
-          <div class="section-header"><h2>A propos</h2></div>
-          <p>
-           Étudiant en 3ème année de Génie Informatique et Télécommunications, je me passionne pour la cybersécurité et les systèmes d'information. Mon objectif est de contribuer à construire des infrastructures numériques plus résilientes et sécurisées.
-          </p>
-        </section>
-
-        <section class="content-section">
-          <div class="section-header"><h2>Objectif</h2></div>
-          <p>
-            Construire une base solide en securite offensive/defensive, progresser en pentesting
-            methodique, et contribuer a des projets reels apres des phases de laboratoire.
-          </p>
-        </section>
+        </div>
       </div>
-    </main>
-  </div>
+    </section>
 
-  <button id="scroll-top" aria-label="Retour en haut"><i class="fa-solid fa-arrow-up"></i></button>
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee__track">
+        <span class="marquee__item">Python</span>
+        <span class="marquee__item">Burp Suite</span>
+        <span class="marquee__item">Nmap</span>
+        <span class="marquee__item">Wireshark</span>
+        <span class="marquee__item">Linux CLI</span>
+        <span class="marquee__item">Analyse réseau</span>
+        <span class="marquee__item">Sécurité web</span>
+        <span class="marquee__item">CTF</span>
+        <span class="marquee__item">Machine Learning</span>
+      </div>
+      <div class="marquee__track">
+        <span class="marquee__item">Python</span>
+        <span class="marquee__item">Burp Suite</span>
+        <span class="marquee__item">Nmap</span>
+        <span class="marquee__item">Wireshark</span>
+        <span class="marquee__item">Linux CLI</span>
+        <span class="marquee__item">Analyse réseau</span>
+        <span class="marquee__item">Sécurité web</span>
+        <span class="marquee__item">CTF</span>
+        <span class="marquee__item">Machine Learning</span>
+      </div>
+    </div>
+
+    <!-- ========================== À propos ========================== -->
+    <section class="section" id="about" data-section>
+      <div class="wrap">
+        <header class="section-head">
+          <span class="kicker" data-reveal>cat a-propos.md</span>
+          <h2 class="section-title" data-reveal style="--delay:.05s">Une approche <span class="text-grad">pratique</span>, rigoureuse, orientée terrain.</h2>
+        </header>
+
+        <div class="about-grid">
+          <article class="panel panel-pad spotlight" data-reveal>
+            <div class="prose">
+              <p>
+                Je suis en <strong>3<sup>e</sup> année de Génie Informatique et Télécommunications</strong>. Mon ambition est de
+                devenir ingénieur spécialisé en cybersécurité, avec une approche pratique, rigoureuse et orientée terrain.
+              </p>
+              <p>
+                Actuellement, je renforce mes bases en <strong>analyse réseau</strong>, en <strong>sécurité applicative web</strong> et en
+                <strong>automatisation de tests avec Python</strong>.
+              </p>
+              <p>
+                Je me considère débutant en pentesting, mais je travaille déjà sur des environnements de TP pour
+                structurer mes méthodes de reconnaissance, d'analyse et de reporting.
+              </p>
+            </div>
+            <div class="goal">
+              <span class="kicker">objectif</span>
+              <p>
+                Construire une base solide en sécurité offensive et défensive, progresser en pentesting
+                méthodique, et contribuer à des projets réels après des phases de laboratoire.
+              </p>
+            </div>
+          </article>
+
+          <aside class="panel panel-pad spotlight" data-reveal style="--delay:.1s">
+            <span class="kicker">formation</span>
+            <div class="timeline">
+              <article class="timeline__item">
+                <span class="timeline__when">3<sup>e</sup> année · en cours</span>
+                <h3>Génie Informatique et Télécommunications</h3>
+                <p>École Polytechnique d'Abomey-Calavi (EPAC)</p>
+              </article>
+              <article class="timeline__item">
+                <span class="timeline__when">2023</span>
+                <h3>Baccalauréat scientifique, série C</h3>
+                <p>Collège d'Enseignement Général 1 de Comè</p>
+              </article>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <hr class="divider" />
+
+    <!-- ========================= Compétences ======================== -->
+    <section class="section" id="skills" data-section>
+      <div class="wrap">
+        <header class="section-head">
+          <span class="kicker" data-reveal>ls competences/</span>
+          <h2 class="section-title" data-reveal style="--delay:.05s">Ma <span class="text-grad">boîte à outils</span> actuelle.</h2>
+          <p class="section-sub" data-reveal style="--delay:.1s">Les outils que je pratique en laboratoire pour la reconnaissance, l'analyse web et réseau, et l'automatisation.</p>
+        </header>
+
+        <div class="bento">
+          <article class="panel panel-pad spotlight skill" data-reveal>
+            <span class="skill__n" aria-hidden="true">01</span>
+            <span class="skill__icon"><i class="fa-brands fa-python" aria-hidden="true"></i></span>
+            <h3>Python</h3>
+            <p>Scripting sécurité, automatisation de scans et parsing de résultats.</p>
+            <code class="skill__cmd" aria-hidden="true">python3 scan.py --parse</code>
+          </article>
+          <article class="panel panel-pad spotlight skill" data-reveal style="--delay:.07s">
+            <span class="skill__n" aria-hidden="true">02</span>
+            <span class="skill__icon"><i class="fa-solid fa-bug" aria-hidden="true"></i></span>
+            <h3>Burp Suite</h3>
+            <p>Interception HTTP, répétition de requêtes et tests web de base.</p>
+            <code class="skill__cmd" aria-hidden="true">proxy → repeater → intruder</code>
+          </article>
+          <article class="panel panel-pad spotlight skill" data-reveal style="--delay:.14s">
+            <span class="skill__n" aria-hidden="true">03</span>
+            <span class="skill__icon"><i class="fa-solid fa-satellite-dish" aria-hidden="true"></i></span>
+            <h3>Nmap</h3>
+            <p>Reconnaissance active, détection de services et analyse d'exposition.</p>
+            <code class="skill__cmd" aria-hidden="true">nmap -sV -sC cible.lab</code>
+          </article>
+          <article class="panel panel-pad spotlight skill" data-reveal style="--delay:.21s">
+            <span class="skill__n" aria-hidden="true">04</span>
+            <span class="skill__icon"><i class="fa-solid fa-wave-square" aria-hidden="true"></i></span>
+            <h3>Wireshark</h3>
+            <p>Inspection de paquets, filtres protocolaires et diagnostic de flux.</p>
+            <code class="skill__cmd" aria-hidden="true">tcp.port == 443 &amp;&amp; tls</code>
+          </article>
+        </div>
+
+        <div class="learning" data-reveal>
+          <span class="kicker">en cours de renforcement</span>
+          <div class="chips">
+            <span class="chip">Analyse réseau</span>
+            <span class="chip">Sécurité applicative web</span>
+            <span class="chip">Automatisation Python</span>
+            <span class="chip">Reconnaissance &amp; reporting</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="divider" />
+
+    <!-- =========================== Projets ========================== -->
+    <section class="section" id="projects" data-section>
+      <div class="wrap">
+        <header class="section-head">
+          <span class="kicker" data-reveal>ls projets/</span>
+          <h2 class="section-title" data-reveal style="--delay:.05s">Des projets qui <span class="text-grad">s'empilent</span>.</h2>
+          <p class="section-sub" data-reveal style="--delay:.1s">Un projet en ligne, et des scénarios de laboratoire imaginés pour structurer ma pratique — signalés « concept » tant qu'ils ne sont pas publiés.</p>
+        </header>
+
+        <div class="stack" id="stack">
+          <article class="stack__card" style="--i:0">
+            <div class="stack__inner spotlight">
+              <div class="stack__body">
+                <div class="stack__top"><span class="stack__n">01</span><span class="badge badge--ok">En ligne</span></div>
+                <h3 class="stack__title">Hackticles</h3>
+                <p class="stack__desc">Blog technique sur la cybersécurité, le développement et le DevOps : articles, tags, commentaires, favoris, newsletter et espace d'administration.</p>
+                <div class="stack__cta">
+                  <a href="https://hackticles.vercel.app" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Visiter le site <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+                </div>
+                <div class="chips"><span class="chip">Laravel</span><span class="chip">Tailwind CSS</span><span class="chip">Vite</span><span class="chip">Vercel</span></div>
+              </div>
+              <div class="stack__media"><img src="assets/projects/hackticles.webp" alt="Logo Hackticles : cadenas filaire néon rouge" width="720" height="720" loading="lazy" /></div>
+            </div>
+          </article>
+
+          <article class="stack__card" style="--i:1">
+            <div class="stack__inner spotlight">
+              <div class="stack__body">
+                <div class="stack__top"><span class="stack__n">02</span><span class="badge">Concept</span></div>
+                <h3 class="stack__title">Campus Surface Scanner</h3>
+                <p class="stack__desc">Plateforme de cartographie réseau avec notation de risques et priorités.</p>
+                <div class="chips"><span class="chip">Nmap</span><span class="chip">Python</span><span class="chip">Cartographie</span></div>
+              </div>
+              <div class="stack__media" aria-hidden="true"><i class="fa-solid fa-satellite-dish stack__glyph"></i></div>
+            </div>
+          </article>
+
+          <article class="stack__card" style="--i:2">
+            <div class="stack__inner spotlight">
+              <div class="stack__body">
+                <div class="stack__top"><span class="stack__n">03</span><span class="badge">Concept</span></div>
+                <h3 class="stack__title">Web App Audit Lite</h3>
+                <p class="stack__desc">Workflow de pentest web académique avec checklist OWASP Top 10.</p>
+                <div class="chips"><span class="chip">Burp Suite</span><span class="chip">OWASP Top 10</span><span class="chip">Reporting</span></div>
+              </div>
+              <div class="stack__media" aria-hidden="true"><i class="fa-solid fa-bug stack__glyph"></i></div>
+            </div>
+          </article>
+
+          <article class="stack__card" style="--i:3">
+            <div class="stack__inner spotlight">
+              <div class="stack__body">
+                <div class="stack__top"><span class="stack__n">04</span><span class="badge">Concept</span></div>
+                <h3 class="stack__title">Packet Insight Lab</h3>
+                <p class="stack__desc">Lab de détection d'anomalies réseau basé sur des captures et des signatures simples.</p>
+                <div class="chips"><span class="chip">Wireshark</span><span class="chip">Captures</span><span class="chip">Signatures</span></div>
+              </div>
+              <div class="stack__media" aria-hidden="true"><i class="fa-solid fa-wave-square stack__glyph"></i></div>
+            </div>
+          </article>
+
+          <article class="stack__card" style="--i:4">
+            <div class="stack__inner spotlight">
+              <div class="stack__body">
+                <div class="stack__top"><span class="stack__n">05</span><span class="badge">Concept</span></div>
+                <h3 class="stack__title">Auth Log Sentinel</h3>
+                <p class="stack__desc">Mini-outil Python pour la corrélation d'échecs d'authentification.</p>
+                <div class="chips"><span class="chip">Python</span><span class="chip">Logs</span><span class="chip">Corrélation</span></div>
+              </div>
+              <div class="stack__media" aria-hidden="true"><i class="fa-solid fa-user-lock stack__glyph"></i></div>
+            </div>
+          </article>
+
+          <article class="stack__card" style="--i:5">
+            <div class="stack__inner spotlight">
+              <div class="stack__body">
+                <div class="stack__top"><span class="stack__n">06</span><span class="badge">Concept</span></div>
+                <h3 class="stack__title">Threat Notes</h3>
+                <p class="stack__desc">Base de veille sécurité pour suivre les CVE et publier des fiches techniques.</p>
+                <div class="chips"><span class="chip">Veille</span><span class="chip">CVE</span><span class="chip">Fiches techniques</span></div>
+              </div>
+              <div class="stack__media" aria-hidden="true"><i class="fa-solid fa-newspaper stack__glyph"></i></div>
+            </div>
+          </article>
+
+          <article class="stack__card" style="--i:6">
+            <div class="stack__inner spotlight">
+              <div class="stack__body">
+                <div class="stack__top"><span class="stack__n">07</span><span class="badge">Concept</span></div>
+                <h3 class="stack__title">Blue Team Starter Kit</h3>
+                <p class="stack__desc">Collection de scripts d'audit local et de contrôles de hardening basique.</p>
+                <div class="chips"><span class="chip">Audit local</span><span class="chip">Hardening</span><span class="chip">Scripts</span></div>
+              </div>
+              <div class="stack__media" aria-hidden="true"><i class="fa-solid fa-shield-halved stack__glyph"></i></div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <hr class="divider" />
+
+    <!-- ======================= Certifications ======================= -->
+    <section class="section" id="certifications" data-section>
+      <div class="wrap">
+        <header class="section-head">
+          <span class="kicker" data-reveal>ls certifications/</span>
+          <h2 class="section-title" data-reveal style="--delay:.05s">Attestations &amp; <span class="text-grad">badges</span> obtenus.</h2>
+          <p class="fan-hint fan-hint--desktop" data-reveal style="--delay:.1s"><i class="fa-solid fa-hand-pointer" aria-hidden="true"></i> Survolez une carte pour la sortir du paquet, cliquez sur l'image pour l'agrandir.</p>
+          <p class="fan-hint fan-hint--mobile" data-reveal style="--delay:.1s"><i class="fa-solid fa-arrows-left-right" aria-hidden="true"></i> Faites glisser pour parcourir, touchez l'image pour l'agrandir.</p>
+        </header>
+
+        <div id="certifications-grid" class="fan" data-reveal></div>
+      </div>
+    </section>
+
+    <!-- =========================== Contact ========================== -->
+    <section class="section" id="contact" data-section>
+      <div class="wrap">
+        <div class="contact" data-reveal>
+          <div>
+            <span class="kicker">ping belange</span>
+            <h2 class="contact__title">Un projet, un CTF, une idée ? <span class="text-grad">Écrivons-nous.</span></h2>
+            <p class="contact__sub">Je réponds volontiers aux messages autour de la cybersécurité, des réseaux et du développement.</p>
+            <div class="contact__cta">
+              <a href="mailto:sogadjibelange@gmail.com" class="btn btn-primary btn-lg"><i class="fa-regular fa-envelope" aria-hidden="true"></i> M'écrire</a>
+              <button type="button" class="btn btn-ghost btn-lg" data-copy="sogadjibelange@gmail.com"><i class="fa-regular fa-copy" aria-hidden="true"></i> Copier l'e-mail</button>
+            </div>
+          </div>
+
+          <div class="contact__list">
+            <a class="contact-row" href="mailto:sogadjibelange@gmail.com">
+              <i class="fa-regular fa-envelope" aria-hidden="true"></i>
+              <span class="contact-row__text"><span class="contact-row__label">E-mail</span>sogadjibelange@gmail.com</span>
+              <i class="fa-solid fa-arrow-right contact-row__end" aria-hidden="true"></i>
+            </a>
+            <a class="contact-row" href="https://www.linkedin.com/in/belange-sogadji" target="_blank" rel="noopener noreferrer">
+              <i class="fa-brands fa-linkedin" aria-hidden="true"></i>
+              <span class="contact-row__text"><span class="contact-row__label">LinkedIn</span>linkedin.com/in/belange-sogadji</span>
+              <i class="fa-solid fa-arrow-up-right-from-square contact-row__end" aria-hidden="true"></i>
+            </a>
+            <a class="contact-row" href="https://github.com/Amegnon" target="_blank" rel="noopener noreferrer">
+              <i class="fa-brands fa-github" aria-hidden="true"></i>
+              <span class="contact-row__text"><span class="contact-row__label">GitHub</span>github.com/Amegnon</span>
+              <i class="fa-solid fa-arrow-up-right-from-square contact-row__end" aria-hidden="true"></i>
+            </a>
+            <div class="contact-row">
+              <i class="fa-solid fa-phone" aria-hidden="true"></i>
+              <span class="contact-row__text"><span class="contact-row__label">Téléphone</span>+229 0195465665 / +229 0141655011</span>
+            </div>
+            <div class="contact-row">
+              <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+              <span class="contact-row__text"><span class="contact-row__label">Localisation</span>Cotonou, Bénin</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="wrap">
+    <hr class="divider" />
+    <div class="footer">
+      <span>© <span id="year">2026</span> SOGADJI Belange Amègnon Steeve</span>
+      <div class="footer__links">
+        <a href="https://hackticles.vercel.app" target="_blank" rel="noopener noreferrer">Hackticles</a>
+        <a href="https://github.com/Amegnon" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://www.linkedin.com/in/belange-sogadji" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      </div>
+    </div>
+  </footer>
+
+  <button type="button" id="scroll-top" class="icon-btn" aria-label="Retour en haut"><i class="fa-solid fa-arrow-up" aria-hidden="true"></i></button>
+  <div class="toast" id="toast" role="status" aria-live="polite"><i class="fa-solid fa-circle-check" aria-hidden="true"></i><span></span></div>
+
+  <script id="certifications-fallback-data" type="application/json">
+    {
+      "certifications": [
+        {
+          "title": "World Wide CTF 2025 - Participation",
+          "issuer": "World Wide Flags",
+          "year": "2025",
+          "description": "Participation au World Wide CTF 2025, compétition de hacking jeopardy-style du 26 au 28 juillet 2025.",
+          "image": "assets/certifications/World_wide_ctf_2025.png",
+          "image_alt": "Certificat World Wide CTF 2025"
+        },
+        {
+          "title": "Linux CLI Basics",
+          "issuer": "Cybrary",
+          "year": "2025",
+          "description": "Certification de formation continue (1 CEU/CPE) validant les bases de la ligne de commande Linux.",
+          "image": "assets/certifications/cybrary_linux.png",
+          "image_alt": "Certificat Linux CLI Basics - Cybrary",
+          "link": "https://app.cybrary.it/profile/EKOEll133?tab=cert-completion&cert=CC-81b26194-20e7-42f7-bb47-02aeeddda65a",
+          "link_label": "Voir certification"
+        },
+        {
+          "title": "Introduction to Cybersecurity",
+          "issuer": "Cisco Networking Academy",
+          "year": "2025",
+          "description": "Validation des fondamentaux de la cybersécurité : menaces, vulnérabilités, protection des systèmes et carrières en sécurité.",
+          "image": "assets/certifications/cisco_cybersecurity.png",
+          "image_alt": "Certificat Introduction to Cybersecurity - Cisco"
+        },
+        {
+          "title": "NASA Space Apps Challenge 2025 - Galactic Problem Solver",
+          "issuer": "NASA International Space Apps Challenge",
+          "year": "2025",
+          "description": "Reconnaissance pour participation remarquable au hackathon NASA Space Apps Challenge, octobre 2025.",
+          "image": "assets/certifications/nasa_space_apps.png",
+          "image_alt": "Certificat NASA Space Apps Challenge 2025"
+        },
+        {
+          "title": "Supervised Machine Learning: Regression and Classification",
+          "issuer": "DeepLearning.AI & Stanford University (via Coursera)",
+          "year": "2025",
+          "description": "Cours en machine learning supervisé couvrant la régression et la classification, dispensé par Andrew Ng.",
+          "image": "assets/certifications/machine_learning_coursera.png",
+          "image_alt": "Certificat Supervised ML - Stanford / DeepLearning.AI",
+          "link": "https://coursera.org/verify/JB66EA3EIB3N",
+          "link_label": "Voir certification"
+        }
+      ]
+    }
+  </script>
   <script src="js/script.js"></script>
 </body>
 </html>

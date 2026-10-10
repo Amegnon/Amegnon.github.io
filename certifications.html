@@ -3,130 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <script>
-    (function () {
-      try {
-        var savedTheme = localStorage.getItem("portfolio-theme");
-        var theme = savedTheme === "dark" ? "dark" : "light";
-        document.documentElement.classList.add(theme + "-theme");
-        var sidebarState = localStorage.getItem("portfolio-sidebar");
-        var isMobileView = window.matchMedia && window.matchMedia("(max-width: 1100px)").matches;
-        if (sidebarState === "collapsed" || (!sidebarState && isMobileView)) {
-          document.documentElement.classList.add("sidebar-collapsed");
-        }
-      } catch (e) {
-        document.documentElement.classList.add("light-theme");
-      }
-    })();
-  </script>
-  <title>SOGADJI Belange Amègnon Steeve | Certifications</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
-  <link rel="stylesheet" href="css/styles.css" />
+  <title>Belange Sogadji | Certifications</title>
+  <!-- Ancienne page : le portfolio tient désormais sur une seule page -->
+  <link rel="canonical" href="index.html#certifications" />
+  <meta http-equiv="refresh" content="0; url=index.html#certifications" />
+  <script>window.location.replace("index.html#certifications");</script>
 </head>
-<body data-page="certifications">
-
-  <button id="theme-toggle" aria-label="Basculer le theme">
-    <i class="fa-solid fa-sun icon-sun"></i>
-    <i class="fa-solid fa-moon icon-moon"></i>
-  </button>
-  <div id="wrapper">
-    <aside id="sidebar">
-      <div class="inner">
-        <h2>Menu</h2>
-        <nav>
-          <a href="index.html" data-nav="home">Accueil</a>
-          <a href="about.html" data-nav="about">A propos</a>
-          <a href="skills.html" data-nav="skills">Competences</a>
-          <a href="projects.html" data-nav="projects">Projets</a>
-          <a href="certifications.html" data-nav="certifications">Certifications</a>
-          <a href="contact.html" data-nav="contact">Contact</a>
-        </nav>
-
-        <section class="sidebar-block">
-          <h3>Profil</h3>
-          <p>Etudiant IT/Telco, orientation Cybersecurite.</p>
-        </section>
-
-        <section class="sidebar-block">
-          <h3>Stack actuelle</h3>
-          <ul class="mini-list">
-            <li>Python</li>
-            <li>Burp Suite</li>
-            <li>Nmap</li>
-            <li>Wireshark</li>
-          </ul>
-        </section>
-      </div>
-    </aside>
-
-    <main id="main">
-      <div class="inner">
-        <section class="page-header"><h1>Certifications </h1></section>
-        <section class="content-section">
-          <div id="certifications-grid" class="certifications-grid"></div>
-        </section>
-      </div>
-    </main>
-  </div>
-
-  <button id="scroll-top" aria-label="Retour en haut"><i class="fa-solid fa-arrow-up"></i></button>
-  <script id="certifications-fallback-data" type="application/json">
-    {
-      "certifications": [
-        {
-          "title": "World Wide CTF 2025 - Participation",
-          "issuer": "World Wide Flags",
-          "year": "2025",
-          "description": "Participation au World Wide CTF 2025, compétition de hacking jeopardy-style du 26 au 28 juillet 2025.",
-          "image": "assets/certifications/World_wide_ctf_2025.png",
-          "image_alt": "Certificat World Wide CTF 2025"
-          
-        },
-        {
-          "title": "Linux CLI Basics",
-          "issuer": "Cybrary",
-          "year": "2025",
-          "description": "Certification de formation continue (1 CEU/CPE) validant les bases de la ligne de commande Linux.",
-          "image": "assets/certifications/cybrary_linux.png",
-          "image_alt": "Certificat Linux CLI Basics - Cybrary",
-          "link": "https://app.cybrary.it/profile/EKOEll133?tab=cert-completion&cert=CC-81b26194-20e7-42f7-bb47-02aeeddda65a",
-          "link_label": "Voir certification"
-        },
-        {
-          "title": "Introduction to Cybersecurity",
-          "issuer": "Cisco Networking Academy",
-          "year": "2025",
-          "description": "Validation des fondamentaux de la cybersécurité : menaces, vulnérabilités, protection des systèmes et carrières en sécurité.",
-          "image": "assets/certifications/cisco_cybersecurity.png",
-          "image_alt": "Certificat Introduction to Cybersecurity - Cisco"
-        
-        },
-        {
-          "title": "NASA Space Apps Challenge 2025 - Galactic Problem Solver",
-          "issuer": "NASA International Space Apps Challenge",
-          "year": "2025",
-          "description": "Reconnaissance pour participation remarquable au hackathon NASA Space Apps Challenge, octobre 2025.",
-          "image": "assets/certifications/nasa_space_apps.png",
-          "image_alt": "Certificat NASA Space Apps Challenge 2025"
-          
-        },
-        {
-          "title": "Supervised Machine Learning: Regression and Classification",
-          "issuer": "DeepLearning.AI & Stanford University (via Coursera)",
-          "year": "2025",
-          "description": "Cours en machine learning supervisé couvrant la régression et la classification, dispensé par Andrew Ng.",
-          "image": "assets/certifications/machine_learning_coursera.png",
-          "image_alt": "Certificat Supervised ML - Stanford / DeepLearning.AI",
-          "link": "https://coursera.org/verify/JB66EA3EIB3N",
-          "link_label": "Voir certification"
-        }
-      ]
-    }
-
-  </script>
-  <script src="js/script.js"></script>
+<body>
+  <p><a href="index.html#certifications">Certifications — continuer vers le portfolio</a></p>
 </body>
 </html>
