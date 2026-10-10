@@ -302,7 +302,7 @@
       var value = button.getAttribute('data-copy');
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(value).then(function () {
-          showToast('Adresse e-mail copiée');
+          showToast(button.getAttribute('data-copy-label') || 'Copié');
         }).catch(function () {
           showToast(value);
         });

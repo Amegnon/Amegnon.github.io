@@ -645,7 +645,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 /* ---------------------------------------------------------------------
    Hero
    --------------------------------------------------------------------- */
-.hero { padding-block: 48px 40px; }
+.hero { padding-block: 48px 40px; overflow-x: clip; }
 
 .hero__grid {
   display: grid;
@@ -1117,7 +1117,13 @@ ul { margin: 0; padding: 0; list-style: none; }
 /* ---------------------------------------------------------------------
    Projets : cartes collantes qui s'empilent au défilement
    --------------------------------------------------------------------- */
-.stack { display: grid; gap: 28px; padding-bottom: 24px; }
+.stack {
+  display: grid;
+  /* Lignes de hauteur égale : une carte recouverte ne dépasse jamais sous la suivante */
+  grid-auto-rows: 1fr;
+  gap: 28px;
+  padding-bottom: 24px;
+}
 
 .stack__card {
   position: sticky;
@@ -1127,6 +1133,8 @@ ul { margin: 0; padding: 0; list-style: none; }
 .stack__inner {
   position: relative;
   display: grid;
+  grid-template-rows: 1fr auto;
+  height: 100%;
   min-height: 300px;
   overflow: hidden;
   border: 1px solid var(--line-2);
@@ -1298,11 +1306,6 @@ ul { margin: 0; padding: 0; list-style: none; }
 .cert__title { font-size: 17px; line-height: 1.25; text-wrap: balance; }
 
 .cert__desc {
-  display: -webkit-box;
-  overflow: hidden;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
-  line-clamp: 3;
   font-size: 14px;
   color: var(--muted);
 }
@@ -1380,6 +1383,12 @@ ul { margin: 0; padding: 0; list-style: none; }
   border-radius: 14px;
   background: color-mix(in srgb, var(--surface-2) 70%, transparent);
   transition: border-color 0.25s ease, transform 0.35s var(--ease), background 0.25s ease;
+}
+
+.contact-row--main {
+  border-color: var(--accent-line);
+  background: var(--grad-soft);
+  box-shadow: var(--glow);
 }
 
 a.contact-row:hover {
@@ -1558,7 +1567,7 @@ body.lightbox-open { overflow: hidden; }
 
   /* Éventail : les cartes se recouvrent, celle survolée sort du paquet */
   .fan {
-    --w: 272px;
+    --w: 246px;
     justify-content: center;
     gap: 0;
     margin-inline: 0;
@@ -1596,14 +1605,29 @@ body.lightbox-open { overflow: hidden; }
 
 /* Petits écrans : la scène est resserrée pour que le paquet reste dans le cadre */
 @media (max-width: 520px) {
-  .stage { width: 80%; }
+  .stage { width: 80%; aspect-ratio: 1 / 1.3; }
   .stage:hover { --spread: 1; }
   .deck-card { border-radius: 18px; }
-  .deck-card--id { padding: 12px; }
-  .id-row { font-size: 12px; }
+  .deck-card--photo { top: 15%; }
+  .deck-card--term { top: 0; }
+  .deck-card--id { right: 0; bottom: 7%; width: 64%; padding: 11px; --tx: 0%; --r: 3deg; }
+  .id-row { grid-template-columns: 18px 1fr; gap: 4px 6px; font-size: 11px; white-space: nowrap; }
+  .id-row + .id-row { margin-top: 7px; }
+  .orbit-tag--low { top: auto !important; right: 2% !important; bottom: -3%; }
   .terminal__bar { padding: 9px 12px; }
   .terminal__body { padding: 10px 12px 14px; font-size: 10.5px; white-space: nowrap; }
   .orbit-tag { height: 28px; padding: 0 10px; font-size: 11px; }
+}
+
+/* Mobile : cartes projets compactes pour tenir sous la barre de navigation */
+@media (max-width: 767px) {
+  .stack { gap: 20px; }
+  .stack__card { top: calc(84px + var(--i, 0) * 10px); }
+  .stack__inner { min-height: 0; }
+  .stack__body { padding: 22px; gap: 12px; }
+  .stack__media { min-height: 92px; }
+  .stack__media img { object-fit: contain; background: #000; }
+  .stack__glyph { font-size: 44px; }
 }
 
 /* Écrans peu hauts : on désactive l'empilement collant */
