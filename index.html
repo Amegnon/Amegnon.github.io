@@ -25,7 +25,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700&family=Geist+Mono:wght@400;500;600;700&family=Geist:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
-  <link rel="stylesheet" href="css/styles.css?v=3" />
+  <link rel="stylesheet" href="css/styles.css?v=4" />
 </head>
 <body>
   <a href="#main" class="btn btn-primary skip-link">Aller au contenu</a>
@@ -102,7 +102,7 @@
           <div class="hero__stats" data-reveal style="--delay:.28s">
             <div><div class="stat__n"><span data-count="3">3</span><sup>e</sup></div><div class="stat__l">année · GIT</div></div>
             <div><div class="stat__n" data-count="5" id="stat-certs">5</div><div class="stat__l">certifications</div></div>
-            <div><div class="stat__n" data-count="4">4</div><div class="stat__l">outils cyber</div></div>
+            <div><div class="stat__n" data-count="7">7</div><div class="stat__l">outils &amp; langages</div></div>
           </div>
         </div>
 
@@ -155,6 +155,9 @@
         <span class="marquee__item">Sécurité web</span>
         <span class="marquee__item">CTF</span>
         <span class="marquee__item">Machine Learning</span>
+        <span class="marquee__item">PHP / Laravel</span>
+        <span class="marquee__item">Java</span>
+        <span class="marquee__item">MATLAB</span>
       </div>
       <div class="marquee__track">
         <span class="marquee__item">Python</span>
@@ -166,6 +169,9 @@
         <span class="marquee__item">Sécurité web</span>
         <span class="marquee__item">CTF</span>
         <span class="marquee__item">Machine Learning</span>
+        <span class="marquee__item">PHP / Laravel</span>
+        <span class="marquee__item">Java</span>
+        <span class="marquee__item">MATLAB</span>
       </div>
     </div>
 
@@ -229,7 +235,7 @@
         <header class="section-head">
           <span class="kicker" data-reveal>ls competences/</span>
           <h2 class="section-title" data-reveal style="--delay:.05s">Ma <span class="text-grad">boîte à outils</span> actuelle.</h2>
-          <p class="section-sub" data-reveal style="--delay:.1s">Les outils que je pratique en laboratoire pour la reconnaissance, l'analyse web et réseau, et l'automatisation.</p>
+          <p class="section-sub" data-reveal style="--delay:.1s">Les outils que je pratique en laboratoire pour la sécurité, et les langages avec lesquels je développe.</p>
         </header>
 
         <div class="bento">
@@ -260,6 +266,31 @@
             <h3>Wireshark</h3>
             <p>Inspection de paquets, filtres protocolaires et diagnostic de flux.</p>
             <code class="skill__cmd" aria-hidden="true">tcp.port == 443 &amp;&amp; tls</code>
+          </article>
+        </div>
+
+        <h3 class="bento-title" data-reveal><span class="kicker">développement &amp; calcul</span></h3>
+        <div class="bento bento--3">
+          <article class="panel panel-pad spotlight skill" data-reveal>
+            <span class="skill__n" aria-hidden="true">05</span>
+            <span class="skill__icon"><i class="fa-brands fa-laravel" aria-hidden="true"></i></span>
+            <h3>PHP / Laravel</h3>
+            <p>Applications web complètes : routes, modèles, vues et administration. C'est la base de mon blog Hackticles.</p>
+            <code class="skill__cmd" aria-hidden="true">php artisan serve</code>
+          </article>
+          <article class="panel panel-pad spotlight skill" data-reveal style="--delay:.07s">
+            <span class="skill__n" aria-hidden="true">06</span>
+            <span class="skill__icon"><i class="fa-brands fa-java" aria-hidden="true"></i></span>
+            <h3>Java</h3>
+            <p>Programmation orientée objet et structuration d'applications.</p>
+            <code class="skill__cmd" aria-hidden="true">javac Main.java &amp;&amp; java Main</code>
+          </article>
+          <article class="panel panel-pad spotlight skill" data-reveal style="--delay:.14s">
+            <span class="skill__n" aria-hidden="true">07</span>
+            <span class="skill__icon"><i class="fa-solid fa-chart-line" aria-hidden="true"></i></span>
+            <h3>MATLAB</h3>
+            <p>Calcul numérique, simulation et visualisation de données.</p>
+            <code class="skill__cmd" aria-hidden="true">plot(t, x); grid on</code>
           </article>
         </div>
 
@@ -503,6 +534,6 @@
       ]
     }
   </script>
-  <script src="js/script.js?v=3"></script>
+  <script src="js/script.js?v=4"></script>
 </body>
 </html>

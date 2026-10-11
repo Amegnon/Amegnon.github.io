@@ -1043,6 +1043,7 @@ ul { margin: 0; padding: 0; list-style: none; }
    Compétences (bento)
    --------------------------------------------------------------------- */
 .bento { display: grid; gap: 16px; }
+.bento-title { margin: 36px 0 16px; }
 
 .skill {
   display: flex;
@@ -1563,6 +1564,7 @@ body.lightbox-open { overflow: hidden; }
   .hero__grid { grid-template-columns: 1.1fr 0.9fr; }
   .about-grid { grid-template-columns: 1.45fr 1fr; }
   .bento { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .bento--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .contact { grid-template-columns: 1.1fr 0.9fr; gap: 56px; padding: 64px; }
 
   /* Éventail : les cartes se recouvrent, celle survolée sort du paquet */
